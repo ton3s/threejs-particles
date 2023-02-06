@@ -5,6 +5,7 @@ import * as dat from 'lil-gui'
 /**
  * Base
  */
+
 // Debug
 const gui = new dat.GUI()
 
@@ -29,38 +30,35 @@ const particleTexture = textureLoader.load(
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 50000
+const count = 20000
 const positions = new Float32Array(count * 3)
+const colors = new Float32Array(count * 3)
 for (let i = 0; i < count * 3; i++) {
 	positions[i] = (Math.random() - 0.5) * 10
+	colors[i] = Math.random()
 }
 particlesGeometry.setAttribute(
 	'position',
 	new THREE.BufferAttribute(positions, 3)
 )
+particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
 // Material
 const particlesMaterial = new THREE.PointsMaterial({
 	size: 0.1,
 	sizeAttenuation: true,
 })
-particlesMaterial.color = new THREE.Color('#ff88cc')
 particlesMaterial.alphaMap = particleTexture
 particlesMaterial.transparent = true
 // particlesMaterial.alphaTest = 0.01
 // particlesMaterial.depthTest = false
 particlesMaterial.depthWrite = false
 particlesMaterial.blending = THREE.AdditiveBlending
+particlesMaterial.vertexColors = true
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
-
-const cube = new THREE.Mesh(
-	new THREE.BoxGeometry(),
-	new THREE.MeshBasicMaterial()
-)
-scene.add(cube)
 
 /**
  * Sizes
