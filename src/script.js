@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 import * as dat from 'lil-gui'
 
 /**
@@ -23,6 +25,28 @@ const particleTexture = textureLoader.load(
 	'/textures/particles/10.png',
 	(texture) => console.log(texture)
 )
+
+/**
+ * Fonts
+ */
+const fontLoader = new FontLoader()
+fontLoader.load('/fonts/gentilis_regular.typeface.json', (font) => {
+	const textGeometry = new TextGeometry('Space Hearts', {
+		font: font,
+		size: 0.5,
+		height: 0.2,
+		curveSegments: 4,
+		bevelEnabled: true,
+		bevelThickness: 0.03,
+		bevelSize: 0.02,
+		bevelOffset: 0,
+		bevelSegments: 4,
+	})
+
+	const text = new THREE.Mesh(textGeometry, new THREE.MeshNormalMaterial())
+	textGeometry.center()
+	scene.add(text)
+})
 
 /**
  * Particles
@@ -117,17 +141,19 @@ const tick = () => {
 	const elapsedTime = clock.getElapsedTime()
 
 	// Update particles
-	// particles.rotation.x = elapsedTime * 0.05
-	for (let i = 0; i < count; i++) {
-		const i3 = i * 3
-		const x = particlesGeometry.attributes.position.array[i3]
+	particles.rotation.x = elapsedTime * 0.05
 
-		// Get the y value
-		particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(
-			elapsedTime + x
-		)
-	}
-	particlesGeometry.attributes.position.needsUpdate = true
+	// Wrong way to animate. Should use custom shader instead!
+	// for (let i = 0; i < count; i++) {
+	// 	const i3 = i * 3
+	// 	const x = particlesGeometry.attributes.position.array[i3]
+
+	// 	// Get the y value
+	// 	particlesGeometry.attributes.position.array[i3 + 1] = Math.sin(
+	// 		elapsedTime + x
+	// 	)
+	// }
+	// particlesGeometry.attributes.position.needsUpdate = true
 
 	// Update controls
 	controls.update()
