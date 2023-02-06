@@ -47,11 +47,18 @@ const particlesMaterial = new THREE.PointsMaterial({
 particlesMaterial.color = new THREE.Color('#ff88cc')
 particlesMaterial.alphaMap = particleTexture
 particlesMaterial.transparent = true
-particlesMaterial.alphaTest = 0.01
+// particlesMaterial.alphaTest = 0.01
+particlesMaterial.depthTest = false
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
 scene.add(particles)
+
+const cube = new THREE.Mesh(
+	new THREE.BoxGeometry(),
+	new THREE.MeshBasicMaterial()
+)
+scene.add(cube)
 
 /**
  * Sizes
