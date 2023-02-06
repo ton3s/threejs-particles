@@ -19,7 +19,7 @@ const scene = new THREE.Scene()
  */
 const textureLoader = new THREE.TextureLoader()
 const particleTexture = textureLoader.load(
-	'/textures/particles/2.png',
+	'/textures/particles/10.png',
 	(texture) => console.log(texture)
 )
 
@@ -29,7 +29,7 @@ const particleTexture = textureLoader.load(
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 5000
+const count = 50000
 const positions = new Float32Array(count * 3)
 for (let i = 0; i < count * 3; i++) {
 	positions[i] = (Math.random() - 0.5) * 10
@@ -50,6 +50,7 @@ particlesMaterial.transparent = true
 // particlesMaterial.alphaTest = 0.01
 // particlesMaterial.depthTest = false
 particlesMaterial.depthWrite = false
+particlesMaterial.blending = THREE.AdditiveBlending
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial)
