@@ -31,17 +31,20 @@ const particleTexture = textureLoader.load(
  */
 const fontLoader = new FontLoader()
 fontLoader.load('/fonts/gentilis_regular.typeface.json', (font) => {
-	const textGeometry = new TextGeometry('Space Hearts', {
-		font: font,
-		size: 0.5,
-		height: 0.2,
-		curveSegments: 4,
-		bevelEnabled: true,
-		bevelThickness: 0.03,
-		bevelSize: 0.02,
-		bevelOffset: 0,
-		bevelSegments: 4,
-	})
+	const textGeometry = new TextGeometry(
+		'Welcome to the Metaverse Team Jody Thoele!',
+		{
+			font: font,
+			size: 0.3,
+			height: 0.2,
+			curveSegments: 4,
+			bevelEnabled: true,
+			bevelThickness: 0.03,
+			bevelSize: 0.02,
+			bevelOffset: 0,
+			bevelSegments: 4,
+		}
+	)
 
 	const text = new THREE.Mesh(textGeometry, new THREE.MeshNormalMaterial())
 	textGeometry.center()
